@@ -111,29 +111,19 @@ public class TurretMotor : MonoBehaviour
     private IEnumerator Attack()
     {
         WaitForSeconds delay = new WaitForSeconds(cooldown);
+        EntityMotor motor = target.GetComponent<EntityMotor>();
 
         while (target != null)
         {
-            try
+            if (target == null) break;
+
+            if (Vector3.Distance(transform.position, target.position) > range)
             {
-                if (target.name != targetName)
-                {
-                    target = null;
-                    targetName = "";
-                    isInFight = false;
-                }
-            }
-            catch
-            {
-                target = null;
-                targetName = "";
-                isInFight = false;
+                ResetTarget();
                 break;
             }
 
-            if (target == null) break;
-
-            //Attack enemy
+            motor.ApplyDamage(damage);
 
             yield return delay;
         }

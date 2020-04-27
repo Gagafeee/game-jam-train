@@ -13,6 +13,7 @@ public class EntityMotor : MonoBehaviour
         if(health <= 0)
         {
             Debug.Log("Entity has been killed!");
+            Destroy(gameObject);
         }
     }
 
